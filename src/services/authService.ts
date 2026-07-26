@@ -9,3 +9,9 @@ export const login = async (
   });
   return response.data;
 };
+
+export const refresh = async () => {
+  const response = await api.get('/auth/refresh');
+
+  return response.data;
+};

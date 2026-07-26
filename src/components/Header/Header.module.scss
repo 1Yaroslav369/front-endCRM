@@ -1,0 +1,65 @@
+.header {
+  height: 70px;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+
+.userBlock {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.name {
+  font-weight: 500;
+}
+
+
+.role {
+  padding: 4px 10px;
+
+  border-radius: 20px;
+
+  background: #dbeafe;
+  color: #2563eb;
+
+  font-size: 14px;
+}
+
+
+.logout {
+  padding: 8px 16px;
+
+  border-radius: 8px;
+
+  background: #ef4444;
+  color: white;
+
+  transition: 0.2s;
+}
+
+
+.logout:hover {
+  background: #dc2626;
+}

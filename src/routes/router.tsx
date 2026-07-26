@@ -1,30 +1,72 @@
 import { createBrowserRouter } from 'react-router-dom';
-import ProtextedRoute from '../components/ProtectedRoute/ProtectedRoute';
-
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
+//pages
+import OrdersPage from '../pages/Orders/OrdersPage';
+import ClientsPage from '../pages/Clients/ClientsPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
-import DashboardPage from '../pages/DashboardPage';
+import DashboardPage from '../pages/Dashboard/DashboardPage';
+//layout
 import DashboardLayout from '../layouts/DashboardLayout';
+import LeadsPage from '../pages/Leads/LeadsPage';
+import OffersPage from '../pages/Offers/OffersPage';
+import FinancePage from '../pages/Finance/FinancePage';
+import InstalationPage from '../pages/Installation/InstallationPage';
+import SettingsPage from '../pages/Settings/SettingsPage';
+import NotFoundPage from '../pages/NotFound/NotFoundPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LoginPage />,
   },
+
   {
-    element: <ProtextedRoute />,
+    element: <ProtectedRoute />,
     children: [
       {
-        path: 'dashboard',
         element: <DashboardLayout />,
+
         children: [
           {
-            path: '',
+            path: 'dashboard',
             element: <DashboardPage />,
+          },
+          {
+            path: 'leads',
+            element: <LeadsPage />,
+          },
+          {
+            path: 'offers',
+            element: <OffersPage />,
+          },
+          {
+            path: 'orders',
+            element: <OrdersPage />,
+          },
+          {
+            path: 'finance',
+            element: <FinancePage />,
+          },
+          {
+            path: 'installation',
+            element: <InstalationPage />,
+          },
+          {
+            path: 'clients',
+            element: <ClientsPage />,
+          },
+          {
+            path: 'settings',
+            element: <SettingsPage />,
           },
         ],
       },
     ],
-  }
-]);
+  },
 
+  {
+    path: '*',
+    element: <NotFoundPage />,
+  },
+]);
 export default router;

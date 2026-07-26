@@ -4,14 +4,17 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 
+//styles
+import styles from "./DashboardLayout.module.scss";
+
 const DashboardLayout = () => {
   return (
-    <div>
+    <div className={styles.layout}>
       <Sidebar />
-      <div>
+      <div className={styles.content}>
         <Header />
 
-        <main>
+        <main className={styles.main}>
           <Outlet />
         </main>
       </div>

@@ -1,14 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { refresh } from '../services/authService';
 import { useAuthStore } from '../store/authStore';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const setUser = useAuthStore((state) => state.setUser);
+  const hasChecked = useRef(false);
 
+  const setUser = useAuthStore((state) => state.setUser);
   const setLoading = useAuthStore((state) => state.setLoading);
 
   useEffect(() => {
+    if (hasChecked.current) return;
+
+    hasChecked.current = true;
+
     const checkSession = async () => {
       try {
         const user = await refresh();

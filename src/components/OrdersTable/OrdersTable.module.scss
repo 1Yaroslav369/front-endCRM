@@ -1,0 +1,27 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+
+  th,
+  td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+  }
+
+  thead {
+    background: #f5f5f5;
+  }
+
+  tbody tr {
+    transition: background 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background: #f8f9fb;
+    }
+  }
+}

@@ -1,58 +1,62 @@
-import Button from '../../components/Buttons/AddButon';
+import { useState } from 'react';
 
-import styles from './ClientActions.module.css';
+import Button from '../Buttons/AddButon';
 
+import { archiveClient } from '../../services/clientService';
+
+import type { Client } from '../../types/client';
+
+import ClientModal from '../ClientModal/ClientsModal';
+
+import styles from './ClientActions.module.scss';
 
 interface Props {
-  clientId: number;
+  client: Client;
+  onRefresh: () => void;
 }
 
+const ClientActions = ({ client, onRefresh }: Props) => {
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
-const ClientActions = ({
-  clientId,
-}: Props) => {
+  const handleArchive = async () => {
+    try {
+      await archiveClient(client.id);
 
-  const handleView = () => {
-    console.log('View client', clientId);
+      onRefresh();
+    } catch (error) {
+      console.error('Archive client failed', error);
+    }
   };
-
-
-  const handleEdit = () => {
-    console.log('Edit client', clientId);
-  };
-
-
-  const handleDelete = () => {
-    console.log('Delete client', clientId);
-  };
-
 
   return (
-    <div className={styles.actions}>
+    <>
+      <Button className={styles.view}>View</Button>
 
       <Button
-        onClick={handleView}
-      >
-        View
-      </Button>
-
-
-      <Button
-        onClick={handleEdit}
-      >
+        className={styles.edit}
+        onClick={() => setIsEditOpen(true)}>
         Edit
       </Button>
 
-
       <Button
-        onClick={handleDelete}
-      >
-        Delete
+        className={styles.archive}
+        onClick={handleArchive}>
+        Archive
       </Button>
 
-    </div>
+      {isEditOpen && (
+        <ClientModal
+          mode="edit"
+          client={client}
+          onClose={() => setIsEditOpen(false)}
+          onSuccess={() => {
+            setIsEditOpen(false);
+            onRefresh();
+          }}
+        />
+      )}
+    </>
   );
 };
-
 
 export default ClientActions;

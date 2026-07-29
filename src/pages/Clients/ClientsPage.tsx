@@ -5,7 +5,7 @@ import type { Client } from '../../types/client';
 
 import ClientsTable from '../../components/ClientsTable/ClientsTable';
 import Button from '../../components/Buttons/AddButon';
-import CreateClientModal from '../../components/ClientsModal/ClientsModal';
+import CreateClientModal from '../../components/ClientModal/ClientsModal';
 import styles from './ClientsPage.module.scss';
 
 const ClientsPage = () => {
@@ -48,16 +48,20 @@ const ClientsPage = () => {
     <div>
       <div className={styles.wrapper}>
         <h1 className={styles.titleHidden}>Clients</h1>
-  
+
         <Button onClick={() => setIsCreateModalOpen(true)}>Add Client</Button>
       </div>
-  
-      <ClientsTable clients={clients} />
+
+      <ClientsTable
+        clients={clients}
+        refreshClients={refreshClients}
+      />
 
       {isCreateModalOpen && (
         <CreateClientModal
-        onClose={() => setIsCreateModalOpen(false)}
-        onSuccess={refreshClients}
+          mode="create"
+          onClose={() => setIsCreateModalOpen(false)}
+          onSuccess={refreshClients}
         />
       )}
     </div>

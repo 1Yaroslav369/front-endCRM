@@ -1,4 +1,5 @@
 import api from '../api/axios';
+
 import type { Client, ClientFormData } from '../types/client';
 
 export const getClients = async (): Promise<Client[]> => {
@@ -32,4 +33,8 @@ export const updateClient = async (
 
 export const deleteClient = async (id: number): Promise<void> => {
   await api.delete(`/clients/${id}`);
+};
+
+export const archiveClient = async (id: number): Promise<void> => {
+  await api.patch(`/clients/${id}/archive`);
 };

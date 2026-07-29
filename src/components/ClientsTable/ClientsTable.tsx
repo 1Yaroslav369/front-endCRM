@@ -1,18 +1,21 @@
 import type { Client } from '../../types/client';
-import styles from './ClientsTable.module.scss';
+
 import ClientActions from '../ClientActions/ClientActions';
+
+import styles from './ClientsTable.module.scss';
 
 interface Props {
   clients: Client[];
+  refreshClients: () => void;
 }
 
-const ClientsTable = ({ clients }: Props) => {
+const ClientsTable = ({ clients, refreshClients }: Props) => {
   return (
     <table className={styles.table}>
       <thead>
         <tr>
           <th>Name</th>
-          <th>Nip</th>
+          <th>NIP</th>
           <th>Phone</th>
           <th>Email</th>
           <th>City</th>
@@ -37,7 +40,10 @@ const ClientsTable = ({ clients }: Props) => {
             <td>{client.created_by_name}</td>
             <td>{new Date(client.created_at).toLocaleDateString()}</td>
             <td>
-              <ClientActions clientId={client.id} />
+              <ClientActions
+                client={client}
+                onRefresh={refreshClients}
+              />
             </td>
           </tr>
         ))}

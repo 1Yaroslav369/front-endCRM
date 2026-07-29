@@ -1,46 +1,50 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import { createClient } from '../../services/clientService';
-import type { ClientFormData } from '../../types/client';
+import { createClient, updateClient } from '../../services/clientService';
+
+import type { Client, ClientFormData } from '../../types/client';
 import type { FormErrors } from '../../types/form';
 
-import Button from '../../components/Buttons/AddButon';
+import Button from '../Buttons/AddButon';
 
 import styles from './ClientsModal.module.scss';
 
 interface Props {
+  mode: 'create' | 'edit';
+  client?: Client;
+
   onClose: () => void;
   onSuccess: () => void;
 }
 
-const CreateClientModal = ({ onClose, onSuccess }: Props) => {
+const ClientModal = ({ mode, client, onClose, onSuccess }: Props) => {
   const [errors, setErrors] = useState<FormErrors>({});
 
-  const [formData, setFormData] = useState<ClientFormData>({
-    name: '',
-    phone: '',
-    nip: '',
-    email: '',
-    city: '',
-    address: '',
-    comment: '',
-  });
+  const [formData, setFormData] = useState<ClientFormData>(() => ({
+    name: client?.name ?? '',
+    nip: client?.nip ?? '',
+    phone: client?.phone ?? '',
+    email: client?.email ?? '',
+    city: client?.city ?? '',
+    address: client?.address ?? '',
+    comment: client?.comment ?? '',
+  }));
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
 
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
 
-    setErrors({
-      ...errors,
+    setErrors((prev) => ({
+      ...prev,
       [name]: '',
-    });
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,13 +53,17 @@ const CreateClientModal = ({ onClose, onSuccess }: Props) => {
     setErrors({});
 
     try {
-      await createClient(formData);
+      if (mode === 'create') {
+        await createClient(formData);
+      } else if (client) {
+        await updateClient(client.id, formData);
+      }
 
       onSuccess();
 
       onClose();
     } catch (error) {
-      console.error('Create client error', error);
+      console.error('Client save error', error);
 
       if (axios.isAxiosError(error)) {
         const serverErrors = error.response?.data?.errors;
@@ -64,7 +72,7 @@ const CreateClientModal = ({ onClose, onSuccess }: Props) => {
           setErrors(serverErrors);
         } else {
           setErrors({
-            general: 'Failed to create client',
+            general: 'Failed to save client',
           });
         }
       } else {
@@ -78,7 +86,7 @@ const CreateClientModal = ({ onClose, onSuccess }: Props) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2>Create Client</h2>
+        <h2>{mode === 'create' ? 'Create Client' : 'Edit Client'}</h2>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -87,6 +95,8 @@ const CreateClientModal = ({ onClose, onSuccess }: Props) => {
             value={formData.name}
             onChange={handleChange}
           />
+
+          {errors.name && <span>{errors.name}</span>}
 
           <input
             name="nip"
@@ -130,11 +140,13 @@ const CreateClientModal = ({ onClose, onSuccess }: Props) => {
             onChange={handleChange}
           />
 
+          {errors.general && <span>{errors.general}</span>}
+
           <div>
             <Button
               className={styles.Create}
               type="submit">
-              Create
+              {mode === 'create' ? 'Create' : 'Save'}
             </Button>
 
             <Button
@@ -150,4 +162,4 @@ const CreateClientModal = ({ onClose, onSuccess }: Props) => {
   );
 };
 
-export default CreateClientModal;
+export default ClientModal;

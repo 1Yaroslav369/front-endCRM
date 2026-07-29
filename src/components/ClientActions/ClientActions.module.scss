@@ -1,0 +1,24 @@
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.archive,
+.edit,
+.view {
+  margin-left: 4px;
+  padding: 4px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover,
+  &:focus {
+    background-color: #2563eb;
+    color: #ffffff;
+  }
+  &.archive:hover,
+  &.archive:focus {
+    background-color: #ff0000;
+    color: #ffffff;
+  }
+}

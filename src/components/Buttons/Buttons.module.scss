@@ -1,0 +1,14 @@
+.buttonAdd {
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+  &:hover,
+  &:focus {
+    background-color: #2563eb;
+    color: #ffffff;
+  }
+}

@@ -13,6 +13,7 @@ import FinancePage from '../pages/Finance/FinancePage';
 import InstalationPage from '../pages/Installation/InstallationPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import NotFoundPage from '../pages/NotFound/NotFoundPage';
+import ClientDetails from '../pages/ClientDetails/ClientDetails';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
           {
             path: 'clients',
             element: <ClientsPage />,
+          },
+          {
+            path: 'clients/:id',
+            element: <ClientDetails/>,
           },
           {
             path: 'settings',

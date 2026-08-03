@@ -105,8 +105,7 @@ const ClientDetails = () => {
                 {orders.map((order) => (
                   <div
                     key={order.id}
-                    className={styles.order}
-                  >
+                    className={styles.order}>
                     <strong>
                       <Link to={`/orders/${order.id}`}>
                         {order.order_number}
@@ -140,9 +139,8 @@ const ClientDetails = () => {
                 <span>Completed</span>
                 <strong>
                   {
-                    orders.filter(
-                      (order) => order.status === 'completed'
-                    ).length
+                    orders.filter((order) => order.status === 'completed')
+                      .length
                   }
                 </strong>
               </div>
@@ -152,9 +150,8 @@ const ClientDetails = () => {
                 <strong>
                   {orders
                     .reduce(
-                      (total, order) =>
-                        total + Number(order.total_price),
-                      0
+                      (total, order) => total + Number(order.total_price),
+                      0,
                     )
                     .toFixed(2)}{' '}
                   PLN
@@ -169,8 +166,7 @@ const ClientDetails = () => {
 
       <button
         className={styles.backButton}
-        onClick={() => window.history.back()}
-      >
+        onClick={() => window.history.back()}>
         Back to Clients
       </button>
     </div>

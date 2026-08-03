@@ -1,7 +1,7 @@
 import type { Client } from '../../types/client';
 
 import styles from './ClientsTable.module.scss';
-import { Link } from 'react-router-dom';
+
 
 interface Props {
   clients: Client[];
@@ -39,8 +39,12 @@ const ClientsTable = ({ clients }: Props) => {
             <td>{client.created_by_name}</td>
             <td>{new Date(client.created_at).toLocaleDateString()}</td>
             <td>
-              <button className={styles.view}>
-                <Link to={`/clients/${client.id}`}>View</Link>
+              <button
+                className={styles.view}
+                onClick={() =>
+                  (window.location.href = `/clients/${client.id}`)
+                }>
+                View
               </button>
             </td>
           </tr>

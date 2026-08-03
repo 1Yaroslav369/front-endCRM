@@ -7,6 +7,7 @@ import LoginPage from '../pages/LoginPage/LoginPage';
 import DashboardPage from '../pages/Dashboard/DashboardPage';
 //layout
 import DashboardLayout from '../layouts/DashboardLayout';
+//pages
 import LeadsPage from '../pages/Leads/LeadsPage';
 import OffersPage from '../pages/Offers/OffersPage';
 import FinancePage from '../pages/Finance/FinancePage';
@@ -44,6 +45,12 @@ const router = createBrowserRouter([
             path: 'orders',
             element: <OrdersPage />,
           },
+          //потом поменять на  orderDetails
+          {
+            path: 'orders/:id',
+            element: <OrdersPage />,
+            },
+            //
           {
             path: 'finance',
             element: <FinancePage />,

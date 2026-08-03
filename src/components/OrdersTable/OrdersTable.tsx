@@ -1,35 +1,39 @@
-import styles from "./OrdersTable.module.scss";
-import  {mockOrders}  from "../../mock/orders";
+import styles from './OrdersTable.module.scss';
+import type { Order } from '../../types/order';
 
-const OrdersTable = () => {
+interface OrdersTableProps {
+  orders: Order[];
+}
+
+const OrdersTable = ({ orders }: OrdersTableProps) => {
   return (
     <table className={styles.table}>
       <thead>
         <tr>
-          <th>№</th>
+          <th>Order</th>
           <th>Client</th>
-          <th>Amount</th>
+          <th>Title</th>
+          <th>Price</th>
           <th>Status</th>
-          <th>Advance</th>
-          <th>Remaining</th>
-          <th>Installation</th>
-          <th>Margin</th>
           <th>Manager</th>
+          <th>Deadline</th>
         </tr>
       </thead>
 
       <tbody>
-        {mockOrders.map((order) => (
+        {orders.map((order) => (
           <tr key={order.id}>
-            <td>{order.orderNumber}</td>
-            <td>{order.client}</td>
-            <td>{order.amount}</td>
+            <td>{order.order_number}</td>
+            <td>{order.client_name}</td>
+            <td>{order.title}</td>
+            <td>{Number(order.total_price).toFixed(2)} PLN</td>
             <td>{order.status}</td>
-            <td>{order.advance}</td>
-            <td>{order.remaining}</td>
-            <td>{order.installationDate}</td>
-            <td>{order.margin}</td>
-            <td>{order.manager}</td>
+            <td>{order.created_by_name}</td>
+            <td>
+              {order.deadline
+                ? new Date(order.deadline).toLocaleDateString()
+                : '-'}
+            </td>
           </tr>
         ))}
       </tbody>

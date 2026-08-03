@@ -1,24 +1,37 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
 import { getClientById } from '../../services/clientService';
-
 import type { Client } from '../../types/client';
-
 import styles from './ClientDetails.module.scss';
+import { getClientOrders } from '../../services/orderService';
+import ClientActions from '../../components/ClientActions/ClientActions';
+
+interface Order {
+  id: number;
+  order_number: string;
+  status: string;
+  total_price: number | string;
+}
 
 const ClientDetails = () => {
   const { id } = useParams();
 
   const [client, setClient] = useState<Client | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
     if (!id) return;
 
     const fetchClient = async () => {
-      const data = await getClientById(Number(id));
+      const clientId = Number(id);
+
+      const data = await getClientById(clientId);
 
       setClient(data);
+
+      const clientOrders = await getClientOrders(clientId);
+
+      setOrders(clientOrders);
     };
 
     fetchClient();
@@ -85,7 +98,24 @@ const ClientDetails = () => {
           <div className={styles.card}>
             <h2 className={styles.cardTitle}>Recent Orders</h2>
 
-            <div className={styles.empty}>No orders yet</div>
+            {orders.length === 0 ? (
+              <div className={styles.empty}>No orders yet</div>
+            ) : (
+              <div>
+                {orders.map((order) => (
+                  <div
+                    key={order.id}
+                    className={styles.order}
+                  >
+                    <strong>
+                      <Link to={`/orders/${order.id}`}>
+                        {order.order_number}
+                      </Link>
+                    </strong>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -96,30 +126,53 @@ const ClientDetails = () => {
             <div className={styles.stats}>
               <div className={styles.stat}>
                 <span>Total Orders</span>
-                <strong>0</strong>
+                <strong>{orders.length}</strong>
               </div>
 
               <div className={styles.stat}>
                 <span>Active Orders</span>
-                <strong>0</strong>
+                <strong>
+                  {orders.filter((order) => order.status === 'active').length}
+                </strong>
               </div>
 
               <div className={styles.stat}>
                 <span>Completed</span>
-                <strong>0</strong>
+                <strong>
+                  {
+                    orders.filter(
+                      (order) => order.status === 'completed'
+                    ).length
+                  }
+                </strong>
               </div>
 
               <div className={styles.stat}>
                 <span>Total Revenue</span>
-                <strong>0 PLN</strong>
+                <strong>
+                  {orders
+                    .reduce(
+                      (total, order) =>
+                        total + Number(order.total_price),
+                      0
+                    )
+                    .toFixed(2)}{' '}
+                  PLN
+                </strong>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <ClientActions client={client} />
+
       <button
-      className={styles.backButton}
-      onClick={() => window.history.back()}>Back to Clients</button>
+        className={styles.backButton}
+        onClick={() => window.history.back()}
+      >
+        Back to Clients
+      </button>
     </div>
   );
 };

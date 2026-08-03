@@ -1,31 +1,35 @@
 export type OrderStatus =
-  | 'OFFER_ACCEPTED'
-  | 'ADVANCE_PAID'
-  | 'IN_PRODUCTION'
+  | 'NEW'
+  | 'OFFER'
+  | 'ACCEPTED'
+  | 'PRODUCTION'
   | 'READY'
-  | 'DELIVERED'
   | 'INSTALLATION'
   | 'COMPLETED'
-  | 'SETTLED';
+  | 'CANCELLED';
 
 export interface Order {
   id: number;
 
-  orderNumber: string;
+  client_id: number;
 
-  client: string;
+  client_name: string;
 
-  amount: number;
+  order_number: string;
 
-  advance: number;
-
-  remaining: number;
-
-  installationDate: string;
-
-  margin: number;
-
-  manager: string;
+  title: string;
 
   status: OrderStatus;
+
+  total_price: number;
+
+  deadline: string | null;
+
+  comment: string | null;
+
+  created_by: number;
+
+  created_by_name: string;
+
+  created_at: string;
 }

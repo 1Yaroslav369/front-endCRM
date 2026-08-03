@@ -114,3 +114,13 @@
     color: #ffffff;
   }
 }
+
+// Orders
+.order{
+  text-decoration: underline;
+  &:hover{
+    color: #2563eb;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+}

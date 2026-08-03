@@ -1,15 +1,14 @@
 import type { Client } from '../../types/client';
 
-import ClientActions from '../ClientActions/ClientActions';
-
 import styles from './ClientsTable.module.scss';
+import { Link } from 'react-router-dom';
 
 interface Props {
   clients: Client[];
   refreshClients: () => void;
 }
 
-const ClientsTable = ({ clients, refreshClients }: Props) => {
+const ClientsTable = ({ clients }: Props) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -40,10 +39,9 @@ const ClientsTable = ({ clients, refreshClients }: Props) => {
             <td>{client.created_by_name}</td>
             <td>{new Date(client.created_at).toLocaleDateString()}</td>
             <td>
-              <ClientActions
-                client={client}
-                onRefresh={refreshClients}
-              />
+              <button className={styles.view}>
+                <Link to={`/clients/${client.id}`}>View</Link>
+              </button>
             </td>
           </tr>
         ))}

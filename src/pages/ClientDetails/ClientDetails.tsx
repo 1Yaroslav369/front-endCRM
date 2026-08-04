@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getClientById } from '../../services/clientService';
 import type { Client } from '../../types/client';
@@ -15,9 +15,27 @@ interface Order {
 
 const ClientDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [client, setClient] = useState<Client | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
+
+  const handleArchive = async () => {
+    navigate('/clients');
+  }
+
+  const loadClient = async () => {
+    if (!id) return;
+    const clientId = Number(id);
+
+    const data = await getClientById(clientId);
+
+    setClient(data);
+
+    const clientOrders = await getClientOrders(clientId);
+
+    setOrders(clientOrders);
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -162,11 +180,14 @@ const ClientDetails = () => {
         </div>
       </div>
 
-      <ClientActions client={client} />
+      <ClientActions
+      onUpdated={loadClient}
+      onArchived={handleArchive}
+      client={client} />
 
       <button
         className={styles.backButton}
-        onClick={() => window.history.back()}>
+        onClick={() => navigate('/clients')}>
         Back to Clients
       </button>
     </div>

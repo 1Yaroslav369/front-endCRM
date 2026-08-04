@@ -4,22 +4,37 @@ import { archiveClient } from '../../services/clientService';
 import type { Client } from '../../types/client';
 import ClientModal from '../ClientModal/ClientsModal';
 import styles from './ClientActions.module.scss';
+import toast from 'react-hot-toast';
+import ConfirmModal from '../ConfimModal/ConfirmModal';
 
 interface Props {
   client: Client;
+  onArchived: (id: number) => void;
+  onUpdated: () => void;
 }
 
-const ClientActions = ({ client }: Props) => {
+const ClientActions = ({ client, onArchived, onUpdated }: Props) => {
+  const [isArchiving, setIsArchiving] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const handleArchive = async () => {
+    setIsArchiving(true);
+
     try {
       await archiveClient(client.id);
-    } catch (error) {
-      console.error('Archive client failed', error);
+
+      toast.success('Client archived successfully');
+
+      setIsConfirmOpen(false);
+      onArchived(client.id);
+    } catch {
+      toast.error('Failed to archive client');
+    } finally {
+      setIsArchiving(false);
     }
   };
-
+  
   return (
     <>
       <Button
@@ -30,10 +45,10 @@ const ClientActions = ({ client }: Props) => {
 
       <Button
         className={styles.archive}
-        onClick={handleArchive}>
-        Archive
+        onClick={() => setIsConfirmOpen(true)}
+        disabled={isArchiving}>
+        {isArchiving ? 'Archiving...' : 'Archive'}
       </Button>
-
       {isEditOpen && (
         <ClientModal
           mode="edit"
@@ -41,7 +56,16 @@ const ClientActions = ({ client }: Props) => {
           onClose={() => setIsEditOpen(false)}
           onSuccess={() => {
             setIsEditOpen(false);
+            onUpdated();
           }}
+        />
+      )}
+      {isConfirmOpen && (
+        <ConfirmModal
+          message={`Are you sure you want to archive? `}
+          onConfirm={handleArchive}
+          onCancel={() => setIsConfirmOpen(false)}
+          loading={isArchiving}
         />
       )}
     </>

@@ -1,7 +1,7 @@
 import type { Client } from '../../types/client';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './ClientsTable.module.scss';
-
 
 interface Props {
   clients: Client[];
@@ -9,6 +9,8 @@ interface Props {
 }
 
 const ClientsTable = ({ clients }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <table className={styles.table}>
       <thead>
@@ -41,9 +43,7 @@ const ClientsTable = ({ clients }: Props) => {
             <td>
               <button
                 className={styles.view}
-                onClick={() =>
-                  (window.location.href = `/clients/${client.id}`)
-                }>
+                onClick={() => navigate(`/clients/${client.id}`)}>
                 View
               </button>
             </td>

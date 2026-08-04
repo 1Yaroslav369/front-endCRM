@@ -5,10 +5,10 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: 0.2s ease;
   &:hover,
   &:focus {
     background-color: #2563eb;
     color: #ffffff;
+    transition: color 0.3s ease, background-color 0.3s ease;
   }
 }

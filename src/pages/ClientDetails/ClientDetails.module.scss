@@ -101,24 +101,27 @@
 }
 
 .backButton {
+  margin-left: 8px;
   margin-top: 20px;
   padding: 10px 18px;
   border: 1px solid #000000;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: 0.2s ease;
   &:hover,
   &:focus {
     background-color: #2563eb;
     color: #ffffff;
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease;
   }
 }
 
 // Orders
-.order{
+.order {
   text-decoration: underline;
-  &:hover{
+  &:hover {
     color: #2563eb;
     cursor: pointer;
     transition: color 0.3s ease;

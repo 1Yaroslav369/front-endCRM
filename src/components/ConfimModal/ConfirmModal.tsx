@@ -19,6 +19,7 @@ const ConfirmModal = ({
         <p>{message}</p>
         <div className={styles.actions}>
           <Button
+            className={styles.confirm}
             onClick={onConfirm}
             disabled={loading}>
             {loading ? 'Processing...' : 'Confirm'}

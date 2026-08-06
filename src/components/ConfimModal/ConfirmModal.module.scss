@@ -30,7 +30,8 @@
   gap: 10px;
 }
 
-.cancel {
+.cancel,
+.confirm {
   max-width: 100px;
   padding: 10px 18px;
   margin-bottom: 20px;
@@ -40,6 +41,13 @@
   font-weight: 500;
   &:hover {
     background-color: red;
+    color: #ffffff;
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease;
+  }
+  &:hover.confirm {
+    background-color: #2563eb;
     color: #ffffff;
     transition:
       color 0.3s ease,

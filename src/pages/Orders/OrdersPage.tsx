@@ -23,9 +23,9 @@ const OrdersPage = () => {
   return (
     <section className={styles.orders}>
       <div className={styles.header}>
-        <h1>Orders</h1>
+        <h1 className={styles.titleHidden}>Orders</h1>
 
-        <button>Create Order</button>
+        <button className={styles.createButton}>Create Order</button>
       </div>
 
       <OrdersTable orders={orders} />

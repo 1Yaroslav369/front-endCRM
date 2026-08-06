@@ -15,6 +15,7 @@ import InstalationPage from '../pages/Installation/InstallationPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import NotFoundPage from '../pages/NotFound/NotFoundPage';
 import ClientDetails from '../pages/ClientDetails/ClientDetails';
+import NewOrderPage from '../pages/NewOrder/NewOrder';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
             element: <OrdersPage />,
             },
             //
+            {
+              path: '/orders/new',
+              element: <NewOrderPage/>
+            },
           {
             path: 'finance',
             element: <FinancePage />,

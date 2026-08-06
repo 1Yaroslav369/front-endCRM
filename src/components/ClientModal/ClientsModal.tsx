@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
-
 import { createClient, updateClient } from '../../services/clientService';
-
 import type { Client, ClientFormData } from '../../types/client';
 import type { FormErrors } from '../../types/form';
-
 import Button from '../Buttons/AddButon';
-
 import styles from './ClientsModal.module.scss';
 
 interface Props {
@@ -86,7 +82,7 @@ const ClientModal = ({ mode, client, onClose, onSuccess }: Props) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2>{mode === 'create' ? 'Create Client' : 'Edit Client'}</h2>
+        <h2 className={styles.title}>{mode === 'create' ? 'Create Client' : 'Edit Client'}</h2>
 
         <form onSubmit={handleSubmit}>
           <input

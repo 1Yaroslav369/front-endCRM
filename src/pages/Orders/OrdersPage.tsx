@@ -3,9 +3,11 @@ import OrdersTable from '../../components/OrdersTable/OrdersTable';
 import { getOrders } from '../../services/orderService';
 import type { Order } from '../../types/order';
 import styles from './Orders.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -25,7 +27,9 @@ const OrdersPage = () => {
       <div className={styles.header}>
         <h1 className={styles.titleHidden}>Orders</h1>
 
-        <button className={styles.createButton}>Create Order</button>
+        <button
+        onClick={() => navigate('/orders/new')}
+        className={styles.createButton}>Create Order</button>
       </div>
 
       <OrdersTable orders={orders} />

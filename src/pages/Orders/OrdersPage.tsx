@@ -26,12 +26,12 @@ const OrdersPage = () => {
     <section className={styles.orders}>
       <div className={styles.header}>
         <h1 className={styles.titleHidden}>Orders</h1>
-
         <button
-        onClick={() => navigate('/orders/new')}
-        className={styles.createButton}>Create Order</button>
+          onClick={() => navigate('/orders/new')}
+          className={styles.createButton}>
+          Create Order
+        </button>
       </div>
-
       <OrdersTable orders={orders} />
     </section>
   );

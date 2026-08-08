@@ -38,3 +38,10 @@ export const deleteClient = async (id: number): Promise<void> => {
 export const archiveClient = async (id: number): Promise<void> => {
   await api.patch(`/clients/${id}/archive`);
 };
+
+export const searchClients = async (query: string) => {
+  const response = await api.get('/clients/search', {
+    params: { query },
+  });
+  return response.data;
+};

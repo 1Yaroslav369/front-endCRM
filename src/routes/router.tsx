@@ -15,7 +15,7 @@ import InstalationPage from '../pages/Installation/InstallationPage';
 import SettingsPage from '../pages/Settings/SettingsPage';
 import NotFoundPage from '../pages/NotFound/NotFoundPage';
 import ClientDetails from '../pages/ClientDetails/ClientDetails';
-import NewOrderPage from '../pages/NewOrder/NewOrder';
+import NewOrderPage from '../pages/NewOrderPage/NewOrder';
 
 const router = createBrowserRouter([
   {

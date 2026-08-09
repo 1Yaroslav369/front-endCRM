@@ -25,14 +25,19 @@ const NewOrderPage = () => {
 
   const [title, setTitle] = useState('');
   const [deadline, setDeadline] = useState<Date | null>(null);
-  const [status, setStatus] = useState('New');
 
-  const [totalPrice, setTotalPrice] = useState('');
+  const [netPrice, setNetPrice] = useState('');
   const [vat, setVat] = useState('23');
 
   const [comment, setComment] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const netPriceNumber = Number(netPrice) || 0;
+  const vatNumber = Number(vat) || 0;
+
+  const vatAmount = netPriceNumber * (vatNumber / 100);
+  const totalPrice = netPriceNumber + vatAmount;
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -47,13 +52,13 @@ const NewOrderPage = () => {
       return;
     }
 
-    if (!totalPrice.trim()) {
-      toast.error('Please enter total price.');
+    if (!netPrice.trim()) {
+      toast.error('Please enter price without VAT.');
       return;
     }
 
-    if (Number(totalPrice) <= 0) {
-      toast.error('Total price must be greater than 0.');
+    if (netPriceNumber <= 0) {
+      toast.error('Price without VAT must be greater than 0.');
       return;
     }
 
@@ -73,7 +78,8 @@ const NewOrderPage = () => {
       const response = await api.post('/orders', {
         client_id: selectedClient.id,
         title: title.trim(),
-        total_price: Number(totalPrice),
+        net_price: netPriceNumber,
+        vat: vatNumber,
         deadline: formattedDeadline,
         comment: comment.trim() || null,
       });
@@ -134,13 +140,16 @@ const NewOrderPage = () => {
               type="text"
               placeholder="Order title"
               value={title}
-              onChange={(event) => setTitle(event.target.value)}
+              onChange={event => setTitle(event.target.value)}
+              disabled={isSubmitting}
             />
           </div>
 
           <div className={styles.row}>
             <div className={styles.field}>
-              <label className={styles.labelDeadline}>Deadline</label>
+              <label className={styles.labelDeadline}>
+                Deadline
+              </label>
 
               <DatePicker
                 selected={deadline}
@@ -148,20 +157,8 @@ const NewOrderPage = () => {
                 dateFormat="dd/MM/yyyy"
                 locale="pl"
                 placeholderText="Select a date"
+                disabled={isSubmitting}
               />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.labelStatus}>Status</label>
-
-              <select
-                value={status}
-                onChange={(event) => setStatus(event.target.value)}>
-                <option value="New">New</option>
-                <option value="In production">In production</option>
-                <option value="Installation">Installation</option>
-                <option value="Completed">Completed</option>
-              </select>
             </div>
           </div>
         </div>
@@ -171,16 +168,19 @@ const NewOrderPage = () => {
 
           <div className={styles.row}>
             <div className={styles.field}>
-              <label htmlFor="totalPrice">Total price *</label>
+              <label htmlFor="netPrice">
+                Price without VAT *
+              </label>
 
               <input
-                id="totalPrice"
+                id="netPrice"
                 type="number"
-                placeholder="0"
+                placeholder="0.00"
                 min="0"
                 step="0.01"
-                value={totalPrice}
-                onChange={(event) => setTotalPrice(event.target.value)}
+                value={netPrice}
+                onChange={event => setNetPrice(event.target.value)}
+                disabled={isSubmitting}
               />
             </div>
 
@@ -190,12 +190,35 @@ const NewOrderPage = () => {
               <select
                 id="vat"
                 value={vat}
-                onChange={(event) => setVat(event.target.value)}>
+                onChange={event => setVat(event.target.value)}
+                disabled={isSubmitting}>
                 <option value="23">23%</option>
                 <option value="8">8%</option>
                 <option value="5">5%</option>
                 <option value="0">0%</option>
               </select>
+            </div>
+          </div>
+
+          <div className={styles.row}>
+            <div className={styles.field}>
+              <label className={styles.labelVatAmount}>VAT amount</label>
+
+              <input
+                type="text"
+                value={`${vatAmount.toFixed(2)} PLN`}
+                readOnly
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.labelTotalPrice}>Total for client</label>
+
+              <input
+                type="text"
+                value={`${totalPrice.toFixed(2)} PLN`}
+                readOnly
+              />
             </div>
           </div>
         </div>
@@ -210,7 +233,8 @@ const NewOrderPage = () => {
               id="comment"
               placeholder="Additional notes..."
               value={comment}
-              onChange={(event) => setComment(event.target.value)}
+              onChange={event => setComment(event.target.value)}
+              disabled={isSubmitting}
             />
           </div>
         </div>
@@ -235,3 +259,4 @@ const NewOrderPage = () => {
 };
 
 export default NewOrderPage;
+

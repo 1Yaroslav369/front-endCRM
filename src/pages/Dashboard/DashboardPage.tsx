@@ -1,5 +1,7 @@
 import { useAuthStore } from "../../store/authStore";
 
+import styles from './Dashboard.module.scss';
+
 const DashboardPage = () => {
   const user = useAuthStore(
     (state) => state.user
@@ -7,7 +9,7 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h1 className={styles.titleHidden}>Dashboard</h1>
 
       <p>
         Welcome {user?.name}

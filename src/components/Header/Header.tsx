@@ -26,7 +26,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
 
-      <h1 className={styles.title}>
+      <h1 className={styles.titleHidden}>
         Dashboard
       </h1>
 

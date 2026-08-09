@@ -4,18 +4,24 @@
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:end;
 
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
 }
 
 
-.title {
-  font-size: 24px;
-  font-weight: 600;
-}
-
+.titleHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    }
 
 .userBlock {
   display: flex;

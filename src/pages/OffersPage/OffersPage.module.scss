@@ -1,0 +1,40 @@
+.titleHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.offers {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.createButton {
+    padding: 8px 16px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #2563eb;
+        color: #ffffff;
+        transition:
+            color 0.3s ease,
+            background-color 0.3s ease;
+    }
+}

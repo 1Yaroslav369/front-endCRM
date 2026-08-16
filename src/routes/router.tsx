@@ -9,7 +9,7 @@ import DashboardPage from '../pages/Dashboard/DashboardPage';
 import DashboardLayout from '../layouts/DashboardLayout';
 //pages
 import LeadsPage from '../pages/Leads/LeadsPage';
-import OffersPage from '../pages/Offers/OffersPage';
+import OffersPage from '../pages/OffersPage/OffersPage';
 import FinancePage from '../pages/Finance/FinancePage';
 import InstalationPage from '../pages/Installation/InstallationPage';
 import SettingsPage from '../pages/Settings/SettingsPage';

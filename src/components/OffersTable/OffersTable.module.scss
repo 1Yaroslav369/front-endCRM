@@ -1,0 +1,126 @@
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+
+    th,
+    td {
+        padding: 14px 16px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+        font-size: 13px;
+        font-weight: 600;
+        color: #6b7280;
+        background-color: #f9fafb;
+    }
+
+    td {
+        font-size: 14px;
+        color: #111827;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+}
+
+.row {
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background-color: #f9fafb;
+    }
+}
+
+.offerNumber {
+    font-weight: 600;
+}
+
+.client {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.clientName {
+    font-weight: 500;
+}
+
+.potential {
+    width: fit-content;
+    font-size: 11px;
+    color: #6b7280;
+    background-color: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+    padding: 5px 10px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.draft {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.sent {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.accepted {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.rejected {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.expired {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.converted {
+    background-color: #ede9fe;
+    color: #77d45b;
+}
+
+.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 200px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    color: #6b7280;
+    background-color: #ffffff;
+}

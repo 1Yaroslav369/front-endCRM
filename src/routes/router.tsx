@@ -16,6 +16,7 @@ import SettingsPage from '../pages/Settings/SettingsPage';
 import NotFoundPage from '../pages/NotFound/NotFoundPage';
 import ClientDetails from '../pages/ClientDetails/ClientDetails';
 import NewOrderPage from '../pages/NewOrderPage/NewOrder';
+import NewOfferPage from '../pages/NewOfferPage/NewOfferPage';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             element: <OffersPage />,
           },
           {
+            path: 'offers/new',
+            element: <NewOfferPage />,
+          },
+          {
             path: 'orders',
             element: <OrdersPage />,
           },
@@ -50,12 +55,12 @@ const router = createBrowserRouter([
           {
             path: 'orders/:id',
             element: <OrdersPage />,
-            },
-            //
-            {
-              path: '/orders/new',
-              element: <NewOrderPage/>
-            },
+          },
+          //
+          {
+            path: '/orders/new',
+            element: <NewOrderPage />,
+          },
           {
             path: 'finance',
             element: <FinancePage />,
@@ -70,7 +75,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'clients/:id',
-            element: <ClientDetails/>,
+            element: <ClientDetails />,
           },
           {
             path: 'settings',
